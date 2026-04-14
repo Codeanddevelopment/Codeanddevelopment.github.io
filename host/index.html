@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Aparna — from Mahu</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold:#c9a84c; --gold2:#e8c97a; --rose:#c06080; --blush:#e8a0b4;
+  --deep:#0a0608; --dark1:#120810; --dark2:#1c0f18; --dark3:#281520; --cream:#f5ede0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--deep);font-family:'Montserrat',sans-serif;color:var(--cream);overflow-x:hidden}
+
+/* CURSOR */
+#cur{position:fixed;pointer-events:none;z-index:99999;width:10px;height:10px;border-radius:50%;
+  background:var(--gold);transform:translate(-50%,-50%);mix-blend-mode:screen;display:none}
+#cur-ring{position:fixed;pointer-events:none;z-index:99998;width:34px;height:34px;border-radius:50%;
+  border:1px solid rgba(201,168,76,.5);transform:translate(-50%,-50%);mix-blend-mode:screen;display:none}
+
+#universe{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+#pline{position:fixed;top:0;left:0;height:1px;width:0;z-index:9997;
+  background:linear-gradient(90deg,transparent,var(--gold),var(--rose),transparent);transition:width .2s}
+
+/* VEIL */
+#veil{position:fixed;inset:0;z-index:9000;background:var(--deep);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:40px;cursor:default}
+#veil::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(201,168,76,.07),transparent)}
+.veil-line{display:block;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  color:transparent;background:linear-gradient(135deg,var(--gold),var(--gold2),var(--blush));
+  -webkit-background-clip:text;background-clip:text;
+  opacity:0;transform:translateY(30px);transition:opacity 1.4s ease,transform 1.4s ease}
+.veil-line.l1{font-size:clamp(1.1rem,3.5vw,1.8rem);letter-spacing:.15em;margin-bottom:24px}
+.veil-line.l2{font-size:clamp(2.5rem,9vw,6rem);letter-spacing:.04em;line-height:1.1}
+.veil-line.l3{font-size:clamp(1.1rem,3.5vw,1.8rem);letter-spacing:.15em;margin-top:24px;transition-delay:.4s}
+.veil-divider{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  margin:20px auto;opacity:0;transition:width 1.6s ease .6s,opacity 1s ease .6s}
+#veil.rv .veil-line{opacity:1;transform:translateY(0)}
+#veil.rv .veil-divider{width:200px;opacity:1}
+#veil.fo{opacity:0;pointer-events:none;transition:opacity 1.2s ease}
+.veil-enter{margin-top:70px;font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.5em;
+  text-transform:uppercase;color:rgba(201,168,76,.75);cursor:pointer;
+  border:1px solid rgba(201,168,76,.4);background:transparent;padding:16px 36px;
+  opacity:0;transition:opacity .8s ease,background .3s,color .3s;
+  animation:vPulse 2s ease-in-out infinite;position:relative;z-index:2}
+.veil-enter:hover{background:rgba(201,168,76,.12);color:var(--gold2)}
+@keyframes vPulse{0%,100%{opacity:.45}50%{opacity:1}}
+#veil.rv .veil-enter{opacity:1}
+
+section{position:relative;z-index:2;overflow:hidden}
+.wrap{max-width:860px;margin:0 auto;padding:0 32px}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:120px 32px 80px}
+.hero-mesh{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 20% 30%,rgba(201,168,76,.06),transparent),
+    radial-gradient(ellipse 60% 80% at 80% 70%,rgba(192,96,128,.07),transparent);
+  animation:meshDrift 12s ease-in-out infinite alternate}
+@keyframes meshDrift{from{transform:scale(1)}to{transform:scale(1.06) rotate(2deg)}}
+.orb{position:absolute;border-radius:50%;pointer-events:none;animation:orbFloat ease-in-out infinite alternate}
+@keyframes orbFloat{from{transform:translate(0,0)}to{transform:translate(20px,-30px)}}
+.hero-eyebrow{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.7em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:32px;
+  opacity:0;animation:fadeUp 1s .5s forwards}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(5.5rem,22vw,15rem);
+  font-weight:300;line-height:.9;color:transparent;
+  background:linear-gradient(135deg,var(--gold2) 0%,var(--gold) 40%,var(--blush) 80%,var(--gold2) 100%);
+  -webkit-background-clip:text;background-clip:text;background-size:200% 200%;
+  animation:goldShift 5s ease-in-out infinite,nameReveal 1.4s .7s cubic-bezier(.22,1.4,.36,1) both}
+@keyframes goldShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes nameReveal{from{opacity:0;filter:blur(20px);transform:scale(.85)}to{opacity:1;filter:blur(0);transform:scale(1)}}
+.hero-rule{width:0;height:1px;margin:28px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  animation:ruleX 1.6s 1.4s ease forwards}
+@keyframes ruleX{to{width:180px}}
+.hero-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,2.8vw,1.4rem);color:rgba(245,237,224,.7);line-height:1.9;
+  max-width:520px;margin:0 auto;opacity:0;animation:fadeUp 1s 1.8s forwards}
+.hero-from{margin-top:48px;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.6em;
+  text-transform:uppercase;color:rgba(201,168,76,.5);opacity:0;animation:fadeUp 1s 2.2s forwards}
+.scroll-cue{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;animation:fadeUp 1s 2.8s forwards}
+.scroll-cue span{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.5em;
+  text-transform:uppercase;color:rgba(201,168,76,.4)}
+.scroll-line{width:1px;height:55px;background:linear-gradient(to bottom,var(--gold),transparent);
+  animation:scrollDrop 2.5s ease-in-out infinite}
+@keyframes scrollDrop{0%{transform:scaleY(0);transform-origin:top;opacity:0}
+  30%{opacity:1}60%{transform:scaleY(1);transform-origin:top}
+  61%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom;opacity:0}}
+
+/* STORY */
+#story{padding:120px 0;background:linear-gradient(180deg,var(--deep),var(--dark2) 50%,var(--deep))}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;border:1px solid rgba(201,168,76,.12)}
+.story-cell{padding:56px 48px;position:relative;overflow:hidden;
+  background:rgba(255,255,255,.015);transition:background .5s}
+.story-cell:hover{background:rgba(201,168,76,.04)}
+.cell-num{font-family:'Cinzel',serif;font-size:5rem;font-weight:400;
+  color:rgba(201,168,76,.08);line-height:1;position:absolute;top:20px;right:28px;pointer-events:none}
+.cell-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.6em;
+  text-transform:uppercase;color:var(--gold);opacity:.8;display:block;margin-bottom:18px}
+.cell-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1.05rem,2.2vw,1.25rem);color:rgba(245,237,224,.75);line-height:2;position:relative;z-index:2}
+.cell-text em{color:var(--gold2);font-style:normal}
+
+/* MUSIC */
+#music{padding:120px 0;background:var(--dark1);position:relative}
+.wave-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.wave-bg svg{width:100%;height:100%;opacity:.06}
+.music-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.music-left{text-align:left}
+.music-right{position:relative}
+
+.vinyl{width:260px;height:260px;border-radius:50%;margin:0 auto;
+  background:conic-gradient(#0a0608 0deg,#1a0f16 15deg,#0a0608 30deg,#1a0f16 45deg,#0a0608 60deg,#1a0f16 75deg,
+    #0a0608 90deg,#1a0f16 105deg,#0a0608 120deg,#1a0f16 135deg,#0a0608 150deg,#1a0f16 165deg,
+    #0a0608 180deg,#1a0f16 195deg,#0a0608 210deg,#1a0f16 225deg,#0a0608 240deg,#1a0f16 255deg,
+    #0a0608 270deg,#1a0f16 285deg,#0a0608 300deg,#1a0f16 315deg,#0a0608 330deg,#1a0f16 345deg,#0a0608 360deg);
+  box-shadow:0 0 60px rgba(201,168,76,.15),0 0 120px rgba(192,96,128,.08);
+  position:relative;animation:vinylSpin 8s linear infinite paused}
+.vinyl.playing{animation-play-state:running}
+.vinyl::before{content:'';position:absolute;inset:20%;border-radius:50%;
+  background:radial-gradient(circle,#1a0f16,#0a0608);border:2px solid rgba(201,168,76,.3)}
+.vinyl::after{content:'';position:absolute;top:50%;left:50%;width:20px;height:20px;
+  border-radius:50%;background:var(--gold);transform:translate(-50%,-50%);box-shadow:0 0 12px var(--gold)}
+@keyframes vinylSpin{to{transform:rotate(360deg)}}
+
+.tonearm{position:absolute;top:-20px;right:-10px;width:120px;height:140px;
+  pointer-events:none;transform-origin:95% 10%;transition:transform 1.2s cubic-bezier(.25,1.2,.5,1)}
+.tonearm.playing{transform:rotate(-18deg)}
+.tonearm-line{position:absolute;top:14px;right:10px;width:3px;height:110px;
+  background:linear-gradient(180deg,rgba(201,168,76,.8),rgba(201,168,76,.3));
+  border-radius:2px;transform:rotate(15deg);transform-origin:top center}
+.tonearm-head{position:absolute;bottom:10px;right:0;width:14px;height:14px;
+  border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.tonearm-pivot{position:absolute;top:6px;right:5px;width:20px;height:20px;border-radius:50%;
+  background:radial-gradient(circle,var(--gold2),var(--gold));border:2px solid rgba(255,255,255,.1)}
+
+.mbars{display:flex;gap:4px;align-items:flex-end;height:48px;margin:32px 0}
+.mbar{width:4px;border-radius:2px;background:linear-gradient(to top,var(--rose),var(--gold));
+  animation:mbarDance ease-in-out infinite alternate;transform-origin:bottom}
+@keyframes mbarDance{from{height:4px;opacity:.4}to{height:48px;opacity:1}}
+
+/* Play button */
+.play-btn{display:inline-flex;align-items:center;gap:18px;padding:22px 52px;margin-top:8px;
+  background:transparent;border:1px solid rgba(201,168,76,.5);color:var(--gold);
+  font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;
+  cursor:pointer;border-radius:0;position:relative;overflow:hidden;
+  transition:border-color .4s,color .4s,transform .25s;
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.play-btn::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(192,96,128,.08));
+  opacity:0;transition:opacity .4s}
+.play-btn:hover::before{opacity:1}
+.play-btn:hover{border-color:var(--gold2);color:var(--gold2);transform:translateY(-3px)}
+.btn-tri{width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;
+  border-left:16px solid var(--gold);flex-shrink:0;transition:border-left-color .4s}
+.play-btn:hover .btn-tri{border-left-color:var(--gold2)}
+
+/* Player bar */
+.player-bar-wrap{margin-top:28px;opacity:0;transition:opacity .6s}
+.player-bar-wrap.visible{opacity:1}
+.player-track-name{font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:1rem;color:rgba(245,237,224,.6);margin-bottom:14px}
+.pbar{height:1px;background:rgba(201,168,76,.2);position:relative}
+.pbar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--rose),var(--gold));
+  transition:width .1s linear;position:relative}
+.pbar-fill::after{content:'';position:absolute;right:-4px;top:-3px;width:8px;height:8px;
+  border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold)}
+.ptimes{display:flex;justify-content:space-between;margin-top:8px;font-size:.7rem;
+  letter-spacing:.1em;color:rgba(245,237,224,.35);font-family:'Montserrat',sans-serif;font-weight:200}
+
+.note-float{position:fixed;pointer-events:none;z-index:9990;font-size:1.2rem;font-family:serif;
+  animation:noteUp ease-out forwards}
+@keyframes noteUp{0%{opacity:1;transform:translateY(0) rotate(-10deg) scale(1)}
+  100%{opacity:0;transform:translateY(-160px) rotate(20deg) scale(.5)}}
+
+/* POEM */
+#poem-section{padding:120px 0;
+  background:linear-gradient(180deg,var(--deep),var(--dark3) 60%,var(--deep));text-align:center}
+.poem-wrap{max-width:680px;margin:0 auto;padding:0 32px}
+.poem-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.6em;
+  text-transform:uppercase;color:rgba(201,168,76,.6);display:block;margin-bottom:60px}
+.poem-stanza{margin-bottom:56px}
+.poem-l{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1.1rem,2.8vw,1.5rem);color:rgba(245,237,224,.75);line-height:2;
+  display:block;opacity:0;transform:translateY(20px);transition:opacity 1s ease,transform 1s ease}
+.poem-l.show{opacity:1;transform:translateY(0)}
+.poem-l em{color:var(--gold2);font-style:normal}
+.poem-rule{width:60px;height:1px;margin:48px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* FLIP CARDS */
+#cards-section{padding:120px 0;background:var(--dark1)}
+.cards-label{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.6em;
+  text-transform:uppercase;color:rgba(201,168,76,.6);display:block;text-align:center;margin-bottom:64px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.fcard{aspect-ratio:3/4;perspective:900px;cursor:pointer;position:relative}
+.fcard-inner{width:100%;height:100%;transform-style:preserve-3d;
+  transition:transform .9s cubic-bezier(.25,1.1,.5,1)}
+.fcard:hover .fcard-inner,.fcard.flipped .fcard-inner{transform:rotateY(180deg)}
+.fcard-f,.fcard-b{position:absolute;inset:0;backface-visibility:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:40px 28px;text-align:center}
+.fcard-f{background:rgba(255,255,255,.02);border:1px solid rgba(201,168,76,.1)}
+.fcard-f-icon{width:48px;height:48px;margin-bottom:20px;opacity:.8}
+.fcard-f-title{font-family:'Cinzel',serif;font-size:.85rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--gold);opacity:.8}
+.fcard-f-hint{margin-top:12px;font-family:'Montserrat',sans-serif;font-weight:200;
+  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,237,224,.2)}
+.fcard-b{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(192,96,128,.06));
+  border:1px solid rgba(201,168,76,.2);transform:rotateY(180deg)}
+.fcard-b-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,2.2vw,1.2rem);color:rgba(245,237,224,.85);line-height:1.9}
+.fcard-b-text em{color:var(--gold2);font-style:normal}
+
+/* KATRINA */
+#katrina-sec{padding:120px 0;text-align:center;
+  background:linear-gradient(135deg,var(--dark2),var(--deep),var(--dark3))}
+.kt-inner{max-width:600px;margin:0 auto;padding:0 32px}
+.kt-crown{width:64px;height:64px;margin:0 auto 32px}
+.kt-title{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2rem,5vw,3.5rem);color:var(--gold2);margin-bottom:24px;line-height:1.2}
+.kt-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,2.4vw,1.2rem);color:rgba(245,237,224,.65);line-height:2}
+.kt-body em{color:var(--blush);font-style:normal}
+
+/* VOICE */
+#voice-sec{padding:120px 0;text-align:center;background:var(--dark1);position:relative;overflow:hidden}
+.voice-rings{width:240px;height:240px;margin:0 auto 48px;position:relative}
+.vring{position:absolute;border-radius:50%;border:1px solid;top:50%;left:50%;
+  transform:translate(-50%,-50%);animation:vringP ease-in-out infinite}
+.vring:nth-child(1){width:80px;height:80px;border-color:rgba(201,168,76,.8);animation-duration:2s}
+.vring:nth-child(2){width:120px;height:120px;border-color:rgba(201,168,76,.5);animation-duration:2.4s;animation-delay:.2s}
+.vring:nth-child(3){width:170px;height:170px;border-color:rgba(201,168,76,.25);animation-duration:3s;animation-delay:.4s}
+.vring:nth-child(4){width:230px;height:230px;border-color:rgba(201,168,76,.1);animation-duration:3.6s;animation-delay:.6s}
+@keyframes vringP{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:1}50%{transform:translate(-50%,-50%) scale(1.06);opacity:.6}}
+.voice-mic{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
+.voice-title{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2rem,5vw,3.5rem);color:var(--cream);margin-bottom:24px}
+.voice-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(1rem,2.4vw,1.2rem);color:rgba(245,237,224,.65);line-height:2.1;max-width:560px;margin:0 auto}
+.voice-body em{color:var(--gold2);font-style:normal}
+
+/* TIME */
+#time-sec{padding:120px 0;text-align:center;background:linear-gradient(180deg,var(--deep),var(--dark2))}
+.time-quote{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(1.6rem,4.5vw,3rem);color:var(--gold2);font-style:italic;
+  max-width:600px;margin:0 auto 24px;line-height:1.5}
+.time-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(.95rem,2.2vw,1.15rem);color:rgba(245,237,224,.6);line-height:2.2;max-width:540px;margin:0 auto}
+.time-body em{color:var(--blush);font-style:normal}
+
+/* CLOSING */
+#closing{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:80px 32px;background:var(--deep);position:relative;overflow:hidden}
+.closing-mesh{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(201,168,76,.05),transparent),
+    radial-gradient(ellipse 40% 40% at 20% 80%,rgba(192,96,128,.05),transparent)}
+.closing-name{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(6rem,25vw,18rem);line-height:.9;color:transparent;
+  background:linear-gradient(135deg,var(--gold2),var(--gold),var(--blush),var(--gold2));
+  -webkit-background-clip:text;background-clip:text;background-size:300% 300%;
+  animation:goldShift 6s ease-in-out infinite;position:relative;z-index:2}
+.closing-from{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.6em;
+  text-transform:uppercase;color:rgba(201,168,76,.4);margin-top:40px;position:relative;z-index:2}
+.closing-line{width:120px;height:1px;margin:24px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.closing-final{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;
+  font-size:clamp(.9rem,2.2vw,1.1rem);color:rgba(245,237,224,.45);letter-spacing:.1em;position:relative;z-index:2}
+
+/* UTILS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(36px);transition:opacity 1.1s ease,transform 1.1s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.sec-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.6em;
+  text-transform:uppercase;color:rgba(201,168,76,.6);display:block;margin-bottom:20px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-weight:300;
+  font-size:clamp(2rem,5vw,3.2rem);color:var(--cream);margin-bottom:64px;line-height:1.2}
+.sec-title em{color:var(--gold2);font-style:italic}
+
+/* MOBILE */
+@media(max-width:768px){
+  #cur,#cur-ring{display:none!important}
+  .hero-name{font-size:clamp(4.5rem,22vw,8rem)}
+  .music-inner{grid-template-columns:1fr;gap:40px}
+  .music-right{order:-1}
+  .vinyl{width:180px;height:180px}
+  .tonearm{width:90px;height:100px}
+  .story-grid{grid-template-columns:1fr}
+  .story-cell{padding:36px 28px}
+  .cards-grid{grid-template-columns:1fr 1fr}
+  .fcard{aspect-ratio:1/1}
+  .music-left{text-align:center}
+  .play-btn{width:100%;justify-content:center;padding:20px 24px;font-size:.78rem;min-height:60px}
+  .poem-wrap{padding:0 20px}
+  .closing-name{font-size:clamp(5rem,28vw,10rem)}
+  .kt-inner{padding:0 20px}
+  .veil-line.l2{font-size:clamp(2.2rem,12vw,5rem)}
+  .veil-enter{font-size:.76rem;padding:14px 28px}
+  .sec-title{font-size:clamp(1.7rem,6vw,2.5rem);margin-bottom:40px}
+  .wrap{padding:0 20px}
+  section{padding:80px 0}
+}
+@media(max-width:420px){
+  .cards-grid{grid-template-columns:1fr}
+  .fcard{aspect-ratio:4/3}
+}
+</style>
+</head>
+<body>
+
+<canvas id="universe"></canvas>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<div id="pline"></div>
+
+<div id="veil">
+  <span class="veil-line l1">The greatest discovery of my life</span>
+  <div class="veil-divider"></div>
+  <span class="veil-line l2">is to find you.</span>
+  <div class="veil-divider" style="transition-delay:1s"></div>
+  <span class="veil-line l3">— Mahu</span>
+  <button class="veil-enter" onclick="enterPage()">enter &nbsp;·&nbsp; for aparna</button>
+</div>
+
+<section id="hero">
+  <div class="hero-mesh"></div>
+  <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.05),transparent);top:-150px;left:-200px;animation-duration:10s"></div>
+  <div class="orb" style="width:400px;height:400px;background:radial-gradient(circle,rgba(192,96,128,.06),transparent);bottom:-100px;right:-180px;animation-duration:13s;animation-delay:2s"></div>
+  <p class="hero-eyebrow">a universe dedicated to</p>
+  <h1 class="hero-name">Aparna</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-tagline">Some people enter your world and rearrange everything —<br>the stars, the silence, and all the time between.</p>
+  <p class="hero-from">crafted with love &nbsp;·&nbsp; from Mahu</p>
+  <div class="scroll-cue"><span>explore</span><div class="scroll-line"></div></div>
+</section>
+
+<section id="story">
+  <div class="wrap" style="margin-bottom:48px">
+    <span class="sec-eyebrow reveal">our story</span>
+    <h2 class="sec-title reveal">Fourteen years <em>and yet</em> —<br>it felt like no time had passed.</h2>
+  </div>
+  <div class="story-grid reveal">
+    <div class="story-cell">
+      <span class="cell-num">01</span><span class="cell-label">The Beginning</span>
+      <p class="cell-text">We first met in <em>childhood</em> — a world of innocence and simplicity. Two young souls crossing paths before either of us knew what it meant.</p>
+    </div>
+    <div class="story-cell">
+      <span class="cell-num">02</span><span class="cell-label">The Fourteen Years</span>
+      <p class="cell-text">Life moved on. Seasons changed. And then — <em>fourteen years later</em> — there she was. I didn't recognise her at first. And then I did.</p>
+    </div>
+    <div class="story-cell">
+      <span class="cell-num">03</span><span class="cell-label">The Realisation</span>
+      <p class="cell-text">It was after we began talking that it dawned on me — <em>"This is Aparna."</em> That moment felt like rediscovering something the universe had kept safe for me.</p>
+    </div>
+    <div class="story-cell">
+      <span class="cell-num">04</span><span class="cell-label">Every Day Since</span>
+      <p class="cell-text">Texts every day. Family occasions. Music that matches perfectly. Her world and mine moving in the same rhythm — like they always were <em>meant to.</em></p>
+    </div>
+  </div>
+</section>
+
+<section id="music">
+  <div class="wave-bg">
+    <svg viewBox="0 0 1440 500" preserveAspectRatio="none">
+      <path d="M0,250 C200,100 400,400 600,250 S1000,100 1200,250 S1400,400 1440,250 L1440,500 L0,500 Z" fill="none" stroke="rgba(201,168,76,1)" stroke-width="1"/>
+      <path d="M0,280 C150,150 350,400 550,280 S900,130 1100,280 S1350,400 1440,280" fill="none" stroke="rgba(192,96,128,1)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <span class="sec-eyebrow reveal">close your eyes &amp; press play</span>
+    <div class="music-inner">
+      <div class="music-left">
+        <h2 class="sec-title reveal" style="margin-bottom:24px">A melody<br><em>for you</em></h2>
+        <p class="reveal" style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:1.1rem;color:rgba(245,237,224,.6);line-height:2;max-width:380px;margin-bottom:32px;">
+          Mahu found a melody that says everything words couldn't. <em style="color:var(--gold2)">This one is yours.</em>
+        </p>
+
+        <div id="songPoem" style="margin-bottom:32px;border-left:1px solid rgba(201,168,76,.2);padding-left:24px;">
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">Baby you light up my world like nobody else—</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">The way that you flip your hair gets me overwhelmed </p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">But when you smile at the ground it ain’t hard to tell </p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">You don’t know (oh oh)</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">You don’t know you’re beautiful</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">If only you saw what I can see</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">You’d understand why I want you so desperately</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">Right now I’m looking at you and I can’t believe</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">You don’t know (oh oh)</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">You don’t know you’re beautiful</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">(oh oh)</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem)">That’s what makes you beautiful</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem);color:var(--gold2)">You don't even know how beautiful you are.</p>
+          <p class="poem-l" style="font-size:clamp(.9rem,2vw,1rem);margin-top:12px;font-style:italic;color:rgba(245,237,224,.55)">— and that is everything, Aparna.</p>
+        </div>
+
+        <audio id="audioPlayer" src="wmyb.mp3"></audio>
+
+        <button class="play-btn" id="playBtn" onclick="handlePlay()">
+          <span class="btn-tri" id="playIcon"></span>
+          <span id="playLabel">♪ &nbsp; Play &nbsp; ♪</span>
+        </button>
+
+        <div class="player-bar-wrap" id="pbarWrap">
+          <p class="player-track-name">a melody from Mahu, for Aparna</p>
+          <div class="pbar"><div class="pbar-fill" id="pFill"></div></div>
+          <div class="ptimes"><span id="pCur">0:00</span><span id="pTotal">0:00</span></div>
+        </div>
+      </div>
+
+      <div class="music-right reveal">
+        <div style="position:relative;width:280px;margin:0 auto;">
+          <div class="vinyl" id="vinyl"></div>
+          <div class="tonearm" id="tonearm">
+            <div class="tonearm-pivot"></div>
+            <div class="tonearm-line"></div>
+            <div class="tonearm-head"></div>
+          </div>
+        </div>
+        <div class="mbars" id="mbars" style="justify-content:center;margin-top:28px;opacity:.3;transition:opacity .6s"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="poem-section">
+  <div class="poem-wrap">
+    <span class="poem-eyebrow reveal">in verse</span>
+    <div class="poem-stanza reveal">
+      <span class="poem-l">We met when the world was still <em>soft and small,</em></span>
+      <span class="poem-l">Two children who had no idea at all</span>
+      <span class="poem-l">That life would pull them apart — and then, someday,</span>
+      <span class="poem-l">Arrange a reunion in the most <em>beautiful</em> way.</span>
+    </div>
+    <div class="poem-rule"></div>
+    <div class="poem-stanza reveal">
+      <span class="poem-l">Her voice — a melody I cannot define,</span>
+      <span class="poem-l">The kind of sound that makes the <em>whole world align.</em></span>
+      <span class="poem-l">When she sings, even silence leans in close</span>
+      <span class="poem-l">To hear the thing that it had wanted <em>most.</em></span>
+    </div>
+    <div class="poem-rule"></div>
+    <div class="poem-stanza reveal">
+      <span class="poem-l">Time disappears when she is near —</span>
+      <span class="poem-l">Hours dissolve, seasons feel unclear.</span>
+      <span class="poem-l">I look up and the day is <em>already gone,</em></span>
+      <span class="poem-l">And I realise — I never wanted it to move on.</span>
+    </div>
+    <div class="poem-rule"></div>
+    <div class="poem-stanza reveal" style="text-align:center">
+      <span class="poem-l" style="color:var(--gold2);font-size:clamp(1.2rem,3vw,1.7rem)">The greatest discovery of my life</span>
+      <span class="poem-l" style="color:var(--gold2);font-size:clamp(1.2rem,3vw,1.7rem)">is to find <em>you.</em></span>
+    </div>
+  </div>
+</section>
+
+<section id="cards-section">
+  <div class="wrap"><span class="cards-label reveal">tap to discover</span></div>
+  <div class="cards-grid reveal">
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><path d="M16 24 C16 18 24 12 24 12 C24 12 32 18 32 24 C32 30 24 36 24 36 C24 36 16 30 16 24Z" stroke="rgba(201,168,76,.7)" stroke-width="1" fill="rgba(201,168,76,.05)"/></svg><p class="fcard-f-title">Music &amp; Soul</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">We found each other through music — Hindi melodies, English songs, the 20s classics. Our playlists overlap perfectly, like two rivers that <em>always knew</em> they'd meet.</p></div>
+    </div></div>
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><path d="M24 14 L26 20 L33 20 L27 24 L29 31 L24 27 L19 31 L21 24 L15 20 L22 20 Z" stroke="rgba(201,168,76,.7)" stroke-width="1" fill="rgba(201,168,76,.05)"/></svg><p class="fcard-f-title">Katrina Kaif</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">She loves Katrina Kaif — the grace, the presence, the beauty. And honestly? Aparna carries that same <em>star quality</em> without even trying. Always has.</p></div>
+    </div></div>
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><path d="M20 28 C20 28 21 32 24 32 C27 32 28 28 28 28 M18 21 C18 21 20 19 22 20 M26 20 C28 19 30 21 30 21" stroke="rgba(201,168,76,.7)" stroke-width="1.5" stroke-linecap="round"/></svg><p class="fcard-f-title">Her Smile</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">She has this <em>cute little smile</em> that doesn't announce itself — it just quietly appears and somehow rearranges everything in the room. Effortless. Unforgettable.</p></div>
+    </div></div>
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><path d="M14 24 C14 17 19 12 24 15 C29 12 34 17 34 24 C34 30 24 37 24 37 C24 37 14 30 14 24Z" stroke="rgba(201,168,76,.7)" stroke-width="1" fill="rgba(201,168,76,.05)"/></svg><p class="fcard-f-title">Her Voice</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">When Aparna sings, there is nothing else. Her voice has a quality that is <em>pure and rare</em> — the kind that stays with you long after the song ends.</p></div>
+    </div></div>
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><circle cx="24" cy="24" r="6" stroke="rgba(201,168,76,.7)" stroke-width="1"/><path d="M24 14 L24 10 M24 38 L24 34 M14 24 L10 24 M38 24 L34 24" stroke="rgba(201,168,76,.4)" stroke-width="1" stroke-linecap="round"/></svg><p class="fcard-f-title">Timeless</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">Time disappears when she is near. Hours slip away like seconds. It is the <em>most beautiful feeling</em> — to lose track of time because the present is too good to count.</p></div>
+    </div></div>
+    <div class="fcard"><div class="fcard-inner">
+      <div class="fcard-f"><svg class="fcard-f-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="20" stroke="rgba(201,168,76,.5)" stroke-width="1"/><path d="M12 24 C12 24 16 14 24 14 C32 14 36 24 36 24 C36 24 32 34 24 34 C16 34 12 24 12 24Z" stroke="rgba(201,168,76,.4)" stroke-width="1" fill="rgba(201,168,76,.03)"/><circle cx="24" cy="24" r="5" stroke="rgba(201,168,76,.8)" stroke-width="1" fill="rgba(201,168,76,.1)"/></svg><p class="fcard-f-title">Rediscovered</p><p class="fcard-f-hint">tap</p></div>
+      <div class="fcard-b"><p class="fcard-b-text">Fourteen years apart — and yet the moment we spoke again, it felt like no time had passed. Some connections are <em>written in something deeper</em> than time.</p></div>
+    </div></div>
+  </div>
+</section>
+
+<section id="katrina-sec">
+  <div class="kt-inner">
+    <svg class="kt-crown reveal" viewBox="0 0 64 48" fill="none">
+      <path d="M8 40 L8 20 L20 32 L32 8 L44 32 L56 20 L56 40 Z" stroke="rgba(201,168,76,.6)" stroke-width="1" fill="rgba(201,168,76,.05)"/>
+      <path d="M6 40 L58 40" stroke="rgba(201,168,76,.4)" stroke-width="1"/>
+      <circle cx="32" cy="8" r="2" fill="rgba(201,168,76,.7)"/>
+      <circle cx="8" cy="20" r="2" fill="rgba(201,168,76,.5)"/>
+      <circle cx="56" cy="20" r="2" fill="rgba(201,168,76,.5)"/>
+    </svg>
+    <h2 class="kt-title reveal">Aparna &amp; Katrina</h2>
+    <p class="kt-body reveal">She admires Katrina Kaif — the poise, the beauty, the unmistakable presence. What she may not see is that she carries that same <em>rare quality</em> within her — a grace that doesn't try, a charm that simply <em>is.</em></p>
+  </div>
+</section>
+
+<section id="voice-sec">
+  <div class="wrap" style="text-align:center">
+    <div class="voice-rings reveal">
+      <div class="vring"></div><div class="vring"></div><div class="vring"></div><div class="vring"></div>
+      <div class="voice-mic">
+        <svg width="32" height="48" viewBox="0 0 32 48" fill="none">
+          <rect x="10" y="2" width="12" height="22" rx="6" stroke="rgba(201,168,76,.8)" stroke-width="1.5"/>
+          <path d="M4 22 C4 32 28 32 28 22" stroke="rgba(201,168,76,.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="16" y1="32" x2="16" y2="44" stroke="rgba(201,168,76,.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="10" y1="44" x2="22" y2="44" stroke="rgba(201,168,76,.4)" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <h2 class="voice-title reveal">Her Voice</h2>
+    <p class="voice-body reveal">There is something about the way Aparna sings —<br>a warmth that moves through the sound like light through water.<br><em>Pure. Unhurried. Completely her own.</em><br><br>It is the kind of voice you could listen to for a lifetime<br>and still find something new in it every time.</p>
+  </div>
+</section>
+
+<section id="time-sec">
+  <div class="wrap" style="text-align:center">
+    <span class="sec-eyebrow reveal">a confession</span>
+    <p class="time-quote reveal">"I don't know how time flows when I am with her."</p>
+    <p class="time-body reveal">An hour becomes a minute. An afternoon disappears like a breath. And every time I look up and realise the day is <em>already gone,</em> I understand — it's because the present was too <em>beautiful to count.</em> That is what Aparna does. She makes every moment feel like it's exactly enough.</p>
+  </div>
+</section>
+
+<section id="closing">
+  <div class="closing-mesh"></div>
+  <div class="closing-name reveal">Aparna</div>
+  <div class="closing-line"></div>
+  <p class="closing-final reveal">with every word, every note, every moment —<br>this is for you. only ever for you.</p>
+  <p class="closing-from reveal" style="margin-top:32px">— Mahu</p>
+</section>
+
+<script>
+/* PARTICLES */
+const canvas=document.getElementById('universe');
+const ctx2=canvas.getContext('2d');
+let W,H,parts=[];
+function rsz(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+rsz();window.addEventListener('resize',rsz);
+class P{
+  constructor(){this.r()}
+  r(){this.x=Math.random()*W;this.y=Math.random()*H;this.sz=Math.random()*1.5+.2;
+    this.sx=(Math.random()-.5)*.2;this.sy=(Math.random()-.5)*.2;
+    this.l=Math.random();this.ml=.4+Math.random()*.5;this.g=true;
+    const r=Math.random();
+    this.c=r<.5?'rgba(201,168,76,':r<.8?'rgba(232,201,122,':'rgba(192,96,128,'}
+  u(){this.x+=this.sx;this.y+=this.sy;
+    if(this.g){this.l+=.003;if(this.l>=this.ml)this.g=false}
+    else{this.l-=.004;if(this.l<=0)this.r()}
+    if(this.x<0||this.x>W||this.y<0||this.y>H)this.r()}
+  d(){const a=Math.sin((this.l/this.ml)*Math.PI)*.6;
+    ctx2.beginPath();ctx2.arc(this.x,this.y,this.sz,0,Math.PI*2);
+    ctx2.fillStyle=this.c+a+')';ctx2.fill()}
+}
+for(let i=0;i<200;i++)parts.push(new P());
+function anim(){ctx2.clearRect(0,0,W,H);parts.forEach(p=>{p.u();p.d()});requestAnimationFrame(anim)}
+anim();
+
+/* CURSOR — desktop only */
+const isTouch=('ontouchstart' in window)||navigator.maxTouchPoints>0;
+const curEl=document.getElementById('cur');
+const curRing=document.getElementById('cur-ring');
+if(!isTouch){
+  curEl.style.display='block';
+  curRing.style.display='block';
+  document.addEventListener('mousemove',e=>{
+    curEl.style.left=e.clientX+'px';curEl.style.top=e.clientY+'px';
+    setTimeout(()=>{curRing.style.left=e.clientX+'px';curRing.style.top=e.clientY+'px'},80);
+  });
+}
+
+/* PROGRESS */
+const pline=document.getElementById('pline');
+window.addEventListener('scroll',()=>{
+  const p=window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100;
+  pline.style.width=p+'%';
+});
+
+/* VEIL */
+const veil=document.getElementById('veil');
+setTimeout(()=>veil.classList.add('rv'),400);
+function enterPage(){
+  veil.classList.add('fo');
+  setTimeout(()=>veil.style.display='none',1200);
+}
+
+/* SCROLL REVEAL */
+const rvls=document.querySelectorAll('.reveal');
+const rvo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rvo.unobserve(e.target)}});
+},{threshold:.1});
+rvls.forEach(r=>rvo.observe(r));
+
+const poemObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting)
+      e.target.querySelectorAll('.poem-l').forEach((l,i)=>setTimeout(()=>l.classList.add('show'),i*300));
+  });
+},{threshold:.2});
+document.querySelectorAll('.poem-stanza').forEach(s=>poemObs.observe(s));
+
+/* MUSIC BARS */
+const mb=document.getElementById('mbars');
+for(let i=0;i<24;i++){
+  const b=document.createElement('div');b.className='mbar';
+  b.style.animationDelay=(i*.06)+'s';b.style.animationDuration=(.4+Math.random()*.7)+'s';
+  mb.appendChild(b);
+}
+
+/* FLIP CARDS */
+document.querySelectorAll('.fcard').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('flipped')));
+
+/* LOCAL AUDIO PLAYER */
+const audio = document.getElementById('audioPlayer');
+let isPlaying = false;
+
+function formatTime(secs) {
+  const m = Math.floor(secs / 60);
+  const s = Math.floor(secs % 60);
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+audio.addEventListener('loadedmetadata', () => {
+  document.getElementById('pTotal').textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener('timeupdate', () => {
+  const prog = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('pFill').style.width = prog + '%';
+  document.getElementById('pCur').textContent = formatTime(audio.currentTime);
+});
+
+audio.addEventListener('ended', () => {
+  stopSong();
+});
+
+function handlePlay() {
+  isPlaying ? pauseSong() : startSong();
+}
+
+function startSong() {
+  const lbl = document.getElementById('playLabel');
+  isPlaying = true;
+  if(lbl) lbl.textContent = '❚❚  Pause';
+  audio.play();
+  document.getElementById('vinyl').classList.add('playing');
+  document.getElementById('tonearm').classList.add('playing');
+  document.getElementById('mbars').style.opacity = '1';
+  document.getElementById('pbarWrap').classList.add('visible');
+  document.querySelectorAll('#songPoem .poem-l').forEach((l, i) => setTimeout(() => l.classList.add('show'), i * 700));
+  launchNotes();
+}
+
+function pauseSong() {
+  const lbl = document.getElementById('playLabel');
+  isPlaying = false;
+  audio.pause();
+  document.getElementById('vinyl').classList.remove('playing');
+  document.getElementById('tonearm').classList.remove('playing');
+  document.getElementById('mbars').style.opacity = '.3';
+  if(lbl) lbl.textContent = '▶  Resume';
+}
+
+function stopSong() {
+  const lbl = document.getElementById('playLabel');
+  isPlaying = false;
+  audio.pause();
+  audio.currentTime = 0;
+  document.getElementById('vinyl').classList.remove('playing');
+  document.getElementById('tonearm').classList.remove('playing');
+  document.getElementById('mbars').style.opacity = '.3';
+  if(lbl) lbl.textContent = '♪ Play Again ♪';
+}
+
+function launchNotes(){
+  const ch=['♪','♫','♩','♬','♭','♮'],co=['#c9a84c','#e8c97a','#e8a0b4','#c06080'];
+  for(let i=0;i<22;i++)setTimeout(()=>{
+    const n=document.createElement('div');n.className='note-float';
+    n.textContent=ch[Math.floor(Math.random()*ch.length)];
+    n.style.color=co[Math.floor(Math.random()*co.length)];
+    n.style.left=(8+Math.random()*84)+'vw';
+    n.style.top=(15+Math.random()*70)+'vh';
+    n.style.fontSize=(.9+Math.random()*1.5)+'rem';
+    n.style.animationDuration=(1.2+Math.random()*1.5)+'s';
+    document.body.appendChild(n);n.addEventListener('animationend',()=>n.remove());
+  },i*180);
+}
+</script>
+</body>
+</html>
