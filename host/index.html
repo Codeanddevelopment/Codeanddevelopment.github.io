@@ -680,7 +680,7 @@ function stopSong() {
 }
 
 function launchNotes(){
-  const ch=['♪','♫','♩','♬','♭','♮','ap','aparna'],co=['#c9a84c','#e8c97a','#e8a0b4','#c06080'];
+  const ch=['♪','♫','♩','♬','♭','♮','ap','aparna','Aparna'],co=['#c9a84c','#e8c97a','#e8a0b4','#c06080'];
   for(let i=0;i<22;i++)setTimeout(()=>{
     const n=document.createElement('div');n.className='note-float';
     n.textContent=ch[Math.floor(Math.random()*ch.length)];
